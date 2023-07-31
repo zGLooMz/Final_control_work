@@ -87,7 +87,7 @@ $> sudo dpkg -i <имя пакета>.deb
 ```
 $> sudo dpkg -r <имя пакета>
 ```
-5. История команд. Тут тоже не понял для чего история команд, когда они все выведены сверху. Но тем не менее:
+5. История команд. 
 ```
 $> history
 ```
@@ -148,13 +148,12 @@ mysql> show databases;
 ```
 Теперь можно наблюдать за БД через браузер:
 
-![phpmyadmin](https://github.com/rkorostin/Final_control_work/blob/draft/image/phpmyadmin-viewdb.PNG)
+![phpmyadmin](https://github.com/zGLooMz/Final_control_work/blob/main/image/phpmyadmin-viewdb.PNG)
 
-Она пока пустая, сейчас добавим инфу.
 
 8. Создание таблиц в БД согласно пункту №6:
 
-[Dump](https://github.com/rkorostin/Final_control_work/blob/draft/SQL/Create_Table.sql) создания таблиц
+[Dump](https://github.com/zGLooMz/Final_control_work/blob/main/SQL/Create_Table.sql) создания таблиц
 
 ```
 mysql> use Friends_of_Human;
@@ -175,14 +174,14 @@ mysql> show tables;
 +----------------------------+
 9 rows in set (0,00 sec)
 ```
-![phpmyadmin](https://github.com/rkorostin/Final_control_work/blob/draft/image/Create_Tables.PNG)
+![phpmyadmin](https://github.com/zGLooMz/Final_control_work/blob/main/image/Create_Tables.PNG)
 
-![Диаграмма](https://github.com/rkorostin/Final_control_work/blob/draft/image/%D0%94%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.PNG)
+![Диаграмма](https://github.com/zGLooMz/Final_control_work/blob/main/image/%D0%94%D0%B8%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0.PNG)
 
 
 9. Заполнение таблиц данными:
 
-[Dump](https://github.com/rkorostin/Final_control_work/blob/draft/SQL/Insert_Tables.sql) заполнения таблиц данными
+[Dump](https://github.com/zGLooMz/Final_control_work/blob/main/SQL/Insert_Tables.sql) заполнения таблиц данными
 
 Теперь данные о животных хранятся в соответствующих таблицах в зависимости от их класса.
 ```
@@ -237,7 +236,7 @@ mysql> SELECT * FROM horses;
 4 rows in set (0,00 sec)
 ```
 
-![Hourses](https://github.com/rkorostin/Final_control_work/blob/draft/image/Horses.PNG)
+![Hourses](https://github.com/zGLooMz/Final_control_work/blob/main/image/Horses.PNG)
 
 10. В таблице **camels** сейчас четыре строки:
 ```
@@ -319,7 +318,7 @@ mysql> SELECT * FROM young_animals;
 7 rows in set (0,00 sec)
 ```
 
-![young_animals](https://github.com/rkorostin/Final_control_work/blob/draft/image/young_animals.PNG)
+![young_animals](https://github.com/zGLooMz/Final_control_work/blob/main/image/young_animals.PNG)
 
 12. Выводим всех животных в одну таблицу:
 ```
@@ -400,11 +399,11 @@ mysql> SELECT h.Name, h.Birthday, h.Commands, pa.Gen_name, yo.Age
 ## Java
 13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 
-[Model](https://github.com/rkorostin/Final_control_work/tree/draft/src/Model)
+[Model](https://github.com/zGLooMz/Final_control_work/tree/main/src/Model)
 
 14. Написать программу, имитирующую работу реестра домашних животных.
 
-[Program](https://github.com/rkorostin/Final_control_work/tree/draft/src)
+[Program](https://github.com/zGLooMz/Final_control_work/tree/main/src)
 
 15. Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
 значение внутренней̆int переменной̆на 1 при нажатие “Завести новое
@@ -413,40 +412,12 @@ mysql> SELECT h.Name, h.Birthday, h.Commands, pa.Gen_name, yo.Age
 типа счетчик была не в ресурсном try и/или ресурс остался открыт. Значение
 считать в ресурсе try, если при заведения животного заполнены все поля.
 
-![Counter](https://github.com/rkorostin/Final_control_work/blob/draft/image/Counter.png)
+![Counter](https://github.com/zGLooMz/Final_control_work/blob/main/image/Counter.png)
 
-[Counter](https://github.com/rkorostin/Final_control_work/blob/draft/src/Counter/Counter.java)
-
-![add_new_pit](https://github.com/rkorostin/Final_control_work/blob/draft/image/Add_pit.gif)
+[Counter](https://github.com/zGLooMz/Final_control_work/blob/main/src/Counter/Counter.java)
 
 
-БД mysql расположена на виртуалке 192.168.1.7 (Хост А)
-Application - на узле 192.168.1.3 (Хост Б)
-Чтобы от хоста А подключиться к БД, расположенной на хосте Б нужно выполнить:
-```
-$> sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
-```
-Добавить строку **bind-address = 192.168.1.3**
 
-Сохраняем изменения и ребутаем службу MySQL:
-```
-$> sudo systemctl restart mysql
-```
-Создаем нового пользователя **user/12345** в БД с правами доступа к удаленному подключению:
-```
-mysql> CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY '12345';
-Query OK, 0 rows affected (0,01 sec)
-
-mysql> GRANT ALL PRIVILEGES ON pet_db.* TO 'user'@'%';
-Query OK, 0 rows affected (0,01 sec)
-```
-В [коде](https://github.com/rkorostin/Final_control_work/blob/draft/src/Resources/database.properties) прописываем хост, бд, логин и пароль.
-
-Использовал VSC. Для работы JDBC драйвера нужно качнуть с офф сайта драйвер и положить его в [проект](https://github.com/rkorostin/Final_control_work/tree/draft/src/lib)
-
-Далее в classpath добавить jar.
-
-![classpath](https://github.com/rkorostin/Final_control_work/blob/draft/image/Classpath_VSC.png) 
 
 
 
